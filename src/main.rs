@@ -23,6 +23,6 @@ fn main() -> glib::ExitCode {
 
 fn build_ui(app: &Application) {
     // Create new window and present it
-    let startup_window = StartupWindow::new(app);
+    let startup_window = SplashWindow::new(app);
     startup_window.present();
 }
