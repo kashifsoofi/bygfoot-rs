@@ -3,14 +3,18 @@ use std::cell::{Cell, RefCell};
 use glib::Properties;
 use glib::subclass::InitializingObject;
 use gtk::glib::{self, ObjectExt};
+use gtk::prelude::ApplicationExt;
 use gtk::subclass::prelude::*;
-use gtk::{CompositeTemplate, Button, Label};
+use gtk::{Application, CompositeTemplate, Button, Label};
 
 // Object holding the state
 #[derive(CompositeTemplate, Default, Properties)]
 #[properties(wrapper_type = super::SplashWindow)]
 #[template(resource = "/org/bygfoot_rs/bygfoot/splash.ui")]
 pub struct SplashWindow {
+    // #[property(get, set)]
+    application: Application,
+
     #[template_child]
     label_hint_counter: TemplateChild<Label>,
     #[template_child]
@@ -94,6 +98,7 @@ impl SplashWindow {
     
     #[template_callback]
     fn on_quit_clicked(&self, _: &Button) {
+        self.application.quit();
     }
 }
 
