@@ -1,8 +1,10 @@
 mod window;
+mod store;
 
 use gtk::prelude::*;
 use gtk::{gio, glib, Application};
 use window::{StartupWindow, SplashWindow};
+use store::store::FileStore;
 
 const APP_ID: &str = "org.bygfoot_rs.bygfoot";
 
