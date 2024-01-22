@@ -1,15 +1,15 @@
 // use glib::clone;
 use glib::subclass::InitializingObject;
+use gtk::ffi::gtk_window_destroy;
+use gtk::prelude::ButtonExt;
 // use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{glib, DropDown, CompositeTemplate};
+use gtk::{glib, CompositeTemplate, Button};
 
 // Object holding the state
 #[derive(CompositeTemplate, Default)]
 #[template(resource = "/org/bygfoot_rs/bygfoot/splash.ui")]
 pub struct SplashWindow {
-    #[template_child]
-    pub dropdown_country: TemplateChild<DropDown>,
 }
 
 // The central trait for subclassing a GObject
@@ -22,6 +22,7 @@ impl ObjectSubclass for SplashWindow {
 
     fn class_init(klass: &mut Self::Class) {
         klass.bind_template();
+        klass.bind_template_callbacks();
     }
 
     fn instance_init(obj: &InitializingObject<Self>) {
@@ -35,6 +36,13 @@ impl ObjectImpl for SplashWindow {
         // Call "constructed" on parent
         self.parent_constructed();
    }
+}
+
+#[gtk::template_callbacks]
+impl SplashWindow {
+    #[template_callback]
+    fn on_quit_clicked(&self, button: &Button) {
+    }
 }
 
 // Trait shared by all widgets

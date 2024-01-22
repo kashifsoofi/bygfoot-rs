@@ -2,7 +2,8 @@
 <!-- Created with Cambalache 0.16.0 -->
 <interface>
   <!-- interface-name splash.ui -->
-  <object class="GtkWindow" id="SplashWindow">
+  <requires lib="gtk" version="4.12"/>
+  <template class="SplashWindow" parent="GtkWindow">
     <child>
       <object class="GtkBox">
         <property name="margin-bottom">5</property>
@@ -194,6 +195,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button_splash_quit">
+                <signal name="clicked" handler="on_quit_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
                     <child>
@@ -226,5 +228,5 @@
       </object>
     </child>
     <style/>
-  </object>
+  </template>
 </interface>

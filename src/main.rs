@@ -2,7 +2,7 @@ mod window;
 
 use gtk::prelude::*;
 use gtk::{gio, glib, Application};
-use window::StartupWindow;
+use window::{StartupWindow, SplashWindow};
 
 const APP_ID: &str = "org.bygfoot_rs.bygfoot";
 

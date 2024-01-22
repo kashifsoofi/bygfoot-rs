@@ -2,7 +2,7 @@
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
 <cambalache-project version="0.13.1" target_tk="gtk-4.0">
   <ui>
-	(1,None,"splash.ui","splash.ui",None,None,None,None,None,None,None)
+	(1,1,"splash.ui","splash.ui",None,None,None,None,None,None,None)
   </ui>
   <object>
 	(1,1,"GtkWindow","SplashWindow",None,None,None,None,-1,None),
@@ -103,6 +103,9 @@
 	(1,43,"GtkLabel","label"," ",None,None,None,None,None,None,None,None,None),
 	(1,44,"GtkLabel","label","Contributors",None,None,None,None,None,None,None,None,None)
   </object_property>
+  <object_signal>
+	(1,1,12,"GtkButton","clicked","on_quit_clicked",None,None,1,None,None)
+  </object_signal>
   <object_data>
 	(1,1,"GtkWidget",1,1,None,None,None,None,None,None)
   </object_data>
