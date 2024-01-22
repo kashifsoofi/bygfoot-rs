@@ -63,7 +63,7 @@
                   </object>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="label_splash_hintcounter">
+                  <object class="GtkLabel" id="label_hint_counter">
                     <property name="halign">end</property>
                     <property name="hexpand">True</property>
                     <property name="justify">right</property>
@@ -72,7 +72,7 @@
               </object>
             </child>
             <child>
-              <object class="GtkLabel" id="label_splash_hint">
+              <object class="GtkLabel" id="label_hint">
                 <property name="halign">center</property>
                 <property name="height-request">90</property>
                 <property name="margin-bottom">5</property>
@@ -88,6 +88,7 @@
                 <property name="spacing">3</property>
                 <child>
                   <object class="GtkButton" id="button_splash_hint_back">
+                    <signal name="clicked" handler="on_hint_back_clicked" swapped="yes"/>
                     <child>
                       <object class="GtkBox">
                         <property name="halign">center</property>
@@ -107,6 +108,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="button_splash_hint_next">
+                    <signal name="clicked" handler="on_hint_next_clicked" swapped="yes"/>
                     <child>
                       <object class="GtkBox">
                         <property name="halign">center</property>
@@ -141,6 +143,7 @@
             <property name="spacing">3</property>
             <child>
               <object class="GtkButton" id="button_splash_new_game">
+                <signal name="clicked" handler="on_new_game_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
                     <child>
@@ -159,6 +162,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button_splash_load_game">
+                <signal name="clicked" handler="on_load_game_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
                     <child>
@@ -177,6 +181,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button_splash_resume_game">
+                <signal name="clicked" handler="on_resume_game_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
                     <child>

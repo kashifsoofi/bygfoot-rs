@@ -1,15 +1,25 @@
-// use glib::clone;
+use std::cell::{Cell, RefCell};
+
+use glib::Properties;
 use glib::subclass::InitializingObject;
-use gtk::ffi::gtk_window_destroy;
-use gtk::prelude::ButtonExt;
-// use gtk::prelude::*;
+use gtk::glib::{self, ObjectExt};
 use gtk::subclass::prelude::*;
-use gtk::{glib, CompositeTemplate, Button};
+use gtk::{CompositeTemplate, Button, Label};
 
 // Object holding the state
-#[derive(CompositeTemplate, Default)]
+#[derive(CompositeTemplate, Default, Properties)]
+#[properties(wrapper_type = super::SplashWindow)]
 #[template(resource = "/org/bygfoot_rs/bygfoot/splash.ui")]
 pub struct SplashWindow {
+    #[template_child]
+    label_hint_counter: TemplateChild<Label>,
+    #[template_child]
+    label_hint: TemplateChild<Label>,
+    
+    #[property(get, set)]
+    hints: Cell<i32>,
+    #[property(get, set)]
+    hint_num: Cell<i32>,
 }
 
 // The central trait for subclassing a GObject
@@ -31,6 +41,7 @@ impl ObjectSubclass for SplashWindow {
 }
 
 // Trait shared by all GObjects
+#[glib::derived_properties]
 impl ObjectImpl for SplashWindow {
     fn constructed(&self) {
         // Call "constructed" on parent
@@ -40,8 +51,49 @@ impl ObjectImpl for SplashWindow {
 
 #[gtk::template_callbacks]
 impl SplashWindow {
+    fn show_hint(&self) {
+        let total_hints = (self.obj().hints() + 10) as usize;
+        let mut hint_num = self.obj().hint_num();
+        if hint_num < 0 {
+            hint_num = (total_hints - 1) as i32;
+        }
+        if hint_num >= (total_hints as i32) {
+            hint_num = 0;
+        }
+        self.obj().set_hint_num(hint_num);
+
+        let hint_counter = format!("({}/{})", hint_num + 1, total_hints);
+        self.label_hint_counter.set_label(&hint_counter);
+    }
+
     #[template_callback]
-    fn on_quit_clicked(&self, button: &Button) {
+    fn on_hint_back_clicked(&self, _: &Button) {
+        let hint_num = self.obj().hint_num() - 1;
+        self.obj().set_hint_num(hint_num);
+        self.show_hint()
+    }
+    
+    #[template_callback]
+    fn on_hint_next_clicked(&self, _: &Button) {
+        let hint_num = self.obj().hint_num() + 1;
+        self.obj().set_hint_num(hint_num);
+        self.show_hint()
+    }
+    
+    #[template_callback]
+    fn on_new_game_clicked(&self, _: &Button) {
+    }
+    
+    #[template_callback]
+    fn on_load_game_clicked(&self, _: &Button) {
+    }
+    
+    #[template_callback]
+    fn on_resume_game_clicked(&self, _: &Button) {
+    }
+    
+    #[template_callback]
+    fn on_quit_clicked(&self, _: &Button) {
     }
 }
 
