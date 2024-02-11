@@ -5,17 +5,15 @@ use glib::subclass::InitializingObject;
 use gtk::glib::{self, ObjectExt};
 use gtk::prelude::ApplicationExt;
 use gtk::subclass::prelude::*;
-use gtk::{CompositeTemplate, Button, Label};
-
-use crate::ui::App;
+use gtk::{Application, CompositeTemplate, Button, Label};
 
 // Object holding the state
 #[derive(CompositeTemplate, Default, Properties)]
 #[properties(wrapper_type = super::SplashWindow)]
-#[template(file = "splash.ui")]
+#[template(resource = "/org/bygfoot_rs/bygfoot/splash.ui")]
 pub struct SplashWindow {
     // #[property(get, set)]
-    application: App,
+    application: Application,
 
     #[template_child]
     label_hint_counter: TemplateChild<Label>,
