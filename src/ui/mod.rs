@@ -1,4 +1,5 @@
 mod app;
+mod window;
 
 use gtk::{gio, glib};
 

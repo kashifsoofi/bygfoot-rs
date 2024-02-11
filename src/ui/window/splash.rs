@@ -3,9 +3,11 @@ use std::cell::{Cell, RefCell};
 use glib::Properties;
 use glib::subclass::InitializingObject;
 use gtk::glib::{self, ObjectExt};
-use gtk::prelude::ApplicationExt;
+use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{Application, CompositeTemplate, Button, Label};
+use gtk::{CompositeTemplate, Button, Label};
+
+use crate::ui::App;
 
 // Object holding the state
 #[derive(CompositeTemplate, Default, Properties)]
@@ -13,7 +15,7 @@ use gtk::{Application, CompositeTemplate, Button, Label};
 #[template(resource = "/org/bygfoot_rs/bygfoot/splash.ui")]
 pub struct SplashWindow {
     // #[property(get, set)]
-    application: Application,
+    application: App,
 
     #[template_child]
     label_hint_counter: TemplateChild<Label>,
@@ -86,6 +88,8 @@ impl SplashWindow {
     
     #[template_callback]
     fn on_new_game_clicked(&self, _: &Button) {
+        let startup_window = super::StartupWindow::new(&self.application);
+        startup_window.present();
     }
     
     #[template_callback]
