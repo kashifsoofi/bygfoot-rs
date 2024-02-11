@@ -1,7 +1,11 @@
 mod app;
-mod window;
+mod splash;
+mod startup;
 
-use gtk::{gio, glib};
+use gtk::{gio, glib, prelude::*};
+
+use crate::ui::splash::SplashWindow;
+use crate::ui::startup::StartupWindow;
 
 const APP_ID: &str = "org.bygfoot_rs.bygfoot";
 
@@ -16,5 +20,17 @@ impl Default for App {
         glib::Object::builder()
             .property("application-id", APP_ID)
             .build()
+    }
+}
+
+impl App {
+    pub fn show_splash(&self) {
+        let splash_window = SplashWindow::new(self);
+        splash_window.present();
+    }
+
+    pub fn show_startup(&self) {
+        let startup_window = StartupWindow::new(self);
+        startup_window.present();
     }
 }

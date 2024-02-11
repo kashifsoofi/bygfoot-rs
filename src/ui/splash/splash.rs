@@ -88,9 +88,7 @@ impl SplashWindow {
     
     #[template_callback]
     fn on_new_game_clicked(&self, _: &Button) {
-        //self.application.show_startup();
-        let startup_window = super::StartupWindow::new(&self.application);
-        startup_window.present();
+        self.application.show_startup();
     }
     
     #[template_callback]
