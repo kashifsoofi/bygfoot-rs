@@ -7,7 +7,7 @@ use crate::ui::App;
 
 glib::wrapper! {
     pub struct StartupWindow(ObjectSubclass<startup::StartupWindow>)
-        @extends gtk::ApplicationWindow, gtk::Window, gtk::Widget,
+        @extends gtk::Window, gtk::Widget,
         @implements gio::ActionGroup, gio::ActionMap, gtk::Accessible, gtk::Buildable,
                     gtk::ConstraintTarget, gtk::Native, gtk::Root, gtk::ShortcutManager;
 }

@@ -7,6 +7,7 @@ use gtk::prelude::*;
 use gtk::subclass::prelude::*;
 use gtk::{CompositeTemplate, Button, Label};
 
+use crate::store::hints_store::FileHintsStore;
 use crate::ui::App;
 
 // Object holding the state
@@ -23,7 +24,7 @@ pub struct SplashWindow {
     label_hint: TemplateChild<Label>,
     
     #[property(get, set)]
-    hints: Cell<i32>,
+    hints: RefCell<Vec<String>>,
     #[property(get, set)]
     hint_num: Cell<i32>,
 }
@@ -52,37 +53,55 @@ impl ObjectImpl for SplashWindow {
     fn constructed(&self) {
         // Call "constructed" on parent
         self.parent_constructed();
+
+        let obj = self.obj();
+
+        let hints_store = FileHintsStore::new();
+        let hint_num = hints_store.load_hint_number();
+        obj.set_hint_num(hint_num);
+
+        let hints = hints_store.get_hints();
+        obj.set_hints(hints);
+
+        self.show_hint();
    }
 }
 
 #[gtk::template_callbacks]
 impl SplashWindow {
     fn show_hint(&self) {
-        let total_hints = (self.obj().hints() + 10) as usize;
-        let mut hint_num = self.obj().hint_num();
+        let obj = self.obj();
+        let total_hints = obj.hints().len();
+        let mut hint_num = obj.hint_num();
         if hint_num < 0 {
             hint_num = (total_hints - 1) as i32;
         }
         if hint_num >= (total_hints as i32) {
             hint_num = 0;
         }
-        self.obj().set_hint_num(hint_num);
+        obj.set_hint_num(hint_num);
 
         let hint_counter = format!("({}/{})", hint_num + 1, total_hints);
         self.label_hint_counter.set_label(&hint_counter);
+
+        let hints = obj.hints();
+        let hint = hints[hint_num as usize].as_str();
+        self.label_hint.set_label(hint);
     }
 
     #[template_callback]
     fn on_hint_back_clicked(&self, _: &Button) {
-        let hint_num = self.obj().hint_num() - 1;
-        self.obj().set_hint_num(hint_num);
+        let obj = self.obj();
+        let hint_num = obj.hint_num() - 1;
+        obj.set_hint_num(hint_num);
         self.show_hint()
     }
     
     #[template_callback]
     fn on_hint_next_clicked(&self, _: &Button) {
-        let hint_num = self.obj().hint_num() + 1;
-        self.obj().set_hint_num(hint_num);
+        let obj = self.obj();
+        let hint_num = obj.hint_num() + 1;
+        obj.set_hint_num(hint_num);
         self.show_hint()
     }
     

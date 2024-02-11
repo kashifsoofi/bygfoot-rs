@@ -3,7 +3,7 @@ use std::{env, fs};
 
 use super::store::get_bygfoot_dir;
 
-#[derive(Clone)]
+#[derive(Clone, Copy)]
 pub struct FileHintsStore;
 
 impl FileHintsStore {
