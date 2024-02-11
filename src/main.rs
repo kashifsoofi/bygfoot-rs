@@ -2,7 +2,7 @@ mod ui;
 mod window;
 mod store;
 
-use gtk::{glib, prelude::*};
+use gtk::{gio, glib, prelude::*};
 use ui::App;
 use window::{StartupWindow, SplashWindow};
 use store::store::FileStore;
@@ -10,8 +10,8 @@ use store::store::FileStore;
 
 fn main() -> glib::ExitCode {
     // Register and include resources
-    // gio::resources_register_include!("bygfoot.gresource")
-    //     .expect("Failed to register resources.");
+    gio::resources_register_include!("bygfoot.gresource")
+        .expect("Failed to register resources.");
 
     // Create a new application
     let app = App::default();
