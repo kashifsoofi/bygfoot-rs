@@ -1,4 +1,5 @@
 mod store;
+mod domain;
 
 use store::store::FileStore;
 

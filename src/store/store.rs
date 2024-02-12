@@ -1,6 +1,8 @@
 use std::{env, fs};
 use std::path::{Path, PathBuf};
 
+use crate::domain::option::{Option, OptionsList};
+
 use super::hints_store::FileHintsStore;
 
 extern crate dirs;
@@ -51,6 +53,47 @@ pub fn get_bygfoot_dir() -> PathBuf {
     get_current_dir()
 }
 
-fn find_support_file(filename: String) -> String {
-    "".to_string()
+pub fn find_support_file(filename: String, warning: bool) -> std::option::Option<PathBuf> {
+    None
+}
+
+pub fn load_options_file(filename: String, warning: bool) -> OptionsList {
+    let support_file = find_support_file(filename, warning);
+    let support_file = support_file.unwrap();
+    let content = fs::read_to_string(support_file).unwrap();
+
+    let mut options_list = OptionsList::new();
+    for line in content.lines() {
+        match parse_option_line(line.to_string()) {
+            None => continue,
+            Some((name, value)) => {
+                let mut option = Option::new(name.clone());
+                if name.starts_with("string_") {
+                    option.string_value = value.clone();
+                } else {
+                    let int_value = value.parse::<i32>().unwrap();
+                    option.value = int_value;
+                }
+                options_list.push(option);
+
+                if name.ends_with("_unix") && os_is_unix() {
+                    let name = name.replace("_unix", "");
+                    let mut option = Option::new(name);
+                    option.string_value = value.clone();
+                    options_list.push(option);
+                } else if name.ends_with("_win32") && !os_is_unix() {
+                    let name = name.replace("_win32", "");
+                    let mut option = Option::new(name);
+                    option.string_value = value.clone();
+                    options_list.push(option);
+                }
+            }
+        }
+    }
+
+    options_list
+}
+
+fn parse_option_line(line: String) -> std::option::Option<(String, String)> {
+    None
 }

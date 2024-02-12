@@ -72,15 +72,8 @@ impl SplashWindow {
     fn show_hint(&self) {
         let obj = self.obj();
         let total_hints = obj.hints().len();
-        let mut hint_num = obj.hint_num();
-        if hint_num < 0 {
-            hint_num = (total_hints - 1) as i32;
-        }
-        if hint_num >= (total_hints as i32) {
-            hint_num = 0;
-        }
-        obj.set_hint_num(hint_num);
 
+        let hint_num = obj.hint_num();
         let hint_counter = format!("({}/{})", hint_num + 1, total_hints);
         self.label_hint_counter.set_label(&hint_counter);
 
@@ -92,15 +85,21 @@ impl SplashWindow {
     #[template_callback]
     fn on_hint_back_clicked(&self, _: &Button) {
         let obj = self.obj();
-        let hint_num = obj.hint_num() - 1;
+        let mut hint_num = obj.hint_num();
+        if hint_num == 0 {
+            hint_num = obj.hints().len() as i32 - 1;
+        } else {
+            hint_num -= 1;
+        }
+
         obj.set_hint_num(hint_num);
         self.show_hint()
     }
     
     #[template_callback]
     fn on_hint_next_clicked(&self, _: &Button) {
-        let obj = self.obj();
-        let hint_num = obj.hint_num() + 1;
+        let obj = self.obj();        
+        let hint_num = (obj.hint_num() + 1) % obj.hints().len() as i32;
         obj.set_hint_num(hint_num);
         self.show_hint()
     }
