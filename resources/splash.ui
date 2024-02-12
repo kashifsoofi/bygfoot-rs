@@ -28,7 +28,11 @@
             <child>
               <object class="GtkScrolledWindow">
                 <child>
-                  <object class="GtkListView" id="listview_splash_contributors"/>
+                  <object class="GtkListView" id="listview_splash_contributors">
+                    <property name="can-focus">False</property>
+                    <property name="can-target">False</property>
+                    <property name="focus-on-click">False</property>
+                  </object>
                 </child>
               </object>
             </child>
@@ -73,12 +77,17 @@
             </child>
             <child>
               <object class="GtkLabel" id="label_hint">
+                <property name="ellipsize">end</property>
                 <property name="halign">center</property>
                 <property name="height-request">90</property>
+                <property name="lines">4</property>
                 <property name="margin-bottom">5</property>
+                <property name="margin-end">56</property>
+                <property name="margin-start">56</property>
                 <property name="margin-top">5</property>
+                <property name="max-width-chars">50</property>
                 <property name="valign">center</property>
-                <property name="wrap">True</property>
+                <property name="width-request">440</property>
               </object>
             </child>
             <child>
@@ -139,13 +148,13 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="homogeneous">True</property>
             <property name="spacing">3</property>
             <child>
               <object class="GtkButton" id="button_splash_new_game">
                 <signal name="clicked" handler="on_new_game_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
+                    <property name="spacing">2</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">document-new-symbolic</property>
@@ -165,6 +174,7 @@
                 <signal name="clicked" handler="on_load_game_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
+                    <property name="spacing">2</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">document-open-symbolic</property>
@@ -184,6 +194,7 @@
                 <signal name="clicked" handler="on_resume_game_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
+                    <property name="spacing">2</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">document-open-recent-symbolic</property>
@@ -200,9 +211,11 @@
             </child>
             <child>
               <object class="GtkButton" id="button_splash_quit">
+                <property name="hexpand">True</property>
                 <signal name="clicked" handler="on_quit_clicked" swapped="yes"/>
                 <child>
                   <object class="GtkBox">
+                    <property name="spacing">2</property>
                     <child>
                       <object class="GtkImage">
                         <property name="icon-name">window-close-symbolic</property>
@@ -221,11 +234,12 @@
         </child>
         <child>
           <object class="GtkBox">
-            <property name="hexpand">True</property>
             <property name="spacing">5</property>
             <child>
               <object class="GtkLabel" id="label_splash_progress">
                 <property name="label">Ready</property>
+                <property name="natural-wrap-mode">word</property>
+                <property name="width-request">400</property>
               </object>
             </child>
           </object>

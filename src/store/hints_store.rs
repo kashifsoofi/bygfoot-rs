@@ -1,10 +1,9 @@
-use std::path::{Path, PathBuf};
-use std::{env, fs};
+use std::{fs, path::Path};
 
 use dirs::home_dir;
 
 use super::store::{get_bygfoot_dir, find_support_file, load_options_file};
-use crate::domain::option::{self, OptionsList};
+use crate::domain::option::OptionsList;
 
 #[derive(Clone, Copy)]
 pub struct FileHintsStore;
