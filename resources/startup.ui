@@ -1,498 +1,207 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.16.0 -->
 <interface>
+  <requires lib="gtk" version="4.12"/>
   <template class="StartupWindow" parent="GtkWindow">
-    <!-- <property name="border_width">6</property> -->
-    <property name="modal">True</property>
-    <!-- <property name="window_position">center</property> -->
-    <property name="default-width">550</property>
     <property name="default-height">600</property>
-    <!-- <signal name="delete_event" handler="on_team_selection_cancel_clicked"/> -->
+    <property name="default-width">550</property>
     <child>
-      <object class="GtkBox" id="vbox2">
-        <property name="visible">True</property>
+      <object class="GtkBox">
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkBox" id="vbox34">
-            <property name="visible">True</property>
+          <object class="GtkBox">
             <property name="orientation">vertical</property>
             <child>
-              <object class="GtkLabel" id="label69">
-                <property name="visible">True</property>
-                <!-- <property name="ypad">1</property> -->
-                <property name="margin-start">5</property>
-                <property name="label" translatable="yes">Choose country</property>
-                <property name="justify">center</property>
+              <object class="GtkLabel">
+                <property name="label">Choose country</property>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing> -->
             </child>
             <child>
-              <object class="GtkDropDown" id="dropdown_country">
-                <property name="visible">True</property>
-                <!-- <signal name="changed" handler="on_combo_country_changed"/> -->3
-              </object>
-              <!-- <packing>
-                <property name="position">1</property>
-              </packing> -->
+              <object class="GtkDropDown" id="combo_country"/>
             </child>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="position">0</property>
-          </packing> -->
         </child>
         <child>
-          <object class="GtkLabel" id="label121">
-            <property name="visible">True</property>
-            <!-- <property name="ypad">5</property> -->
-            <property name="margin-start">5</property>
-            <property name="label" translatable="yes">Choose team</property>
+          <object class="GtkLabel">
+            <property name="label">Choose team</property>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">1</property>
-          </packing> -->
         </child>
         <child>
-          <object class="GtkPaned" id="hpaned1">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="position">200</property>
+          <object class="GtkPaned">
             <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow10">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">automatic</property>
-                <property name="vscrollbar_policy">automatic</property>
-                <!-- <property name="shadow_type">in</property> -->
+              <object class="GtkScrolledWindow">
                 <child>
-                  <object class="GtkTreeView" id="treeview_users">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="tooltip_text" translatable="yes">Click on a user to remove him.</property>
-                    <!-- <signal name="button_press_event" handler="on_treeview_users_button_press_event"/> -->
+                  <object class="GtkListView" id="treeview_users">
+                    <property name="model">
+                      <object class="GtkSingleSelection"/>
+                    </property>
                   </object>
                 </child>
               </object>
-              <!-- <packing>
-                <property name="resize">False</property>
-                <property name="shrink">True</property>
-              </packing> -->
             </child>
             <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow1">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">automatic</property>
-                <property name="vscrollbar_policy">automatic</property>
-                <!-- <property name="shadow_type">in</property> -->
+              <object class="GtkScrolledWindow">
                 <child>
-                  <object class="GtkTreeView" id="treeview_startup">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <!-- <property name="has_focus">True</property> -->
-                    <!-- <property name="border_width">2</property> -->
-                    <property name="reorderable">True</property>
-                    <!-- <property name="rules_hint">True</property> -->
-                  </object>
-                </child>
-              </object>
-              <!-- <packing>
-                <property name="resize">True</property>
-                <property name="shrink">True</property>
-              </packing> -->
-            </child>
-          </object>
-          <!-- <packing>
-            <property name="position">2</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkSeparator" id="hseparator11">
-            <property name="orientation">horizontal</property>
-            <property name="width_request">1</property>
-            <property name="height_request">10</property>
-            <property name="visible">True</property>
-          </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">3</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkLabel" id="label4">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Choose league to start in</property>
-          </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">4</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkComboBox" id="combobox_start_league">
-            <property name="visible">True</property>
-          </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">5</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkSeparator" id="hseparator12">
-            <property name="orientation">horizontal</property>
-            <property name="width_request">1</property>
-            <property name="height_request">5</property>
-            <property name="visible">True</property>
-          </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">6</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkLabel" id="label75">
-            <property name="visible">True</property>
-            <property name="label" translatable="yes">Choose username</property>
-          </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">7</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkBox" id="hbox54">
-            <property name="orientation">horizontal</property>
-            <property name="visible">True</property>
-            <property name="spacing">5</property>
-            <child>
-              <object class="GtkEntry" id="entry_player_name">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="max_length">12</property>
-                <property name="width_chars">12</property>
-                <!-- <signal name="activate" handler="on_entry_player_name_activate"/> -->
-              </object>
-              <!-- <packing>
-                <property name="position">0</property>
-              </packing> -->
-            </child>
-          </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="position">8</property>
-          </packing> -->
-        </child>
-        <child>
-          <object class="GtkButton" id="button_add_player">
-            <property name="visible">True</property>
-            <property name="sensitive">False</property>
-            <property name="can_focus">False</property>
-            <property name="receives_default">False</property>
-            <!-- <signal name="clicked" handler="on_button_add_player_clicked"/> -->
-            <child>
-              <!-- <object class="GtkAlignment" id="alignment19"> -->
-              <object class="GtkBox" id="alignment19">
-                <property name="orientation">horizontal</property>
-                <property name="visible">True</property>
-                <!-- <property name="xscale">0</property>
-                <property name="yscale">0</property> -->
-                <child>
-                  <object class="GtkBox" id="hbox55">
-                    <property name="orientation">horizontal</property>
-                    <property name="visible">True</property>
-                    <property name="spacing">2</property>
-                    <child>
-                      <object class="GtkImage" id="image59">
-                        <property name="visible">True</property>
-                        <!-- <property name="stock">gtk-add</property> -->
-                      </object>
-                      <!-- <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">0</property>
-                      </packing> -->
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label76">
-                        <property name="visible">True</property>
-                        <property name="label" translatable="yes">Add user</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <!-- <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">False</property>
-                        <property name="position">1</property>
-                      </packing> -->
-                    </child>
+                  <object class="GtkListView" id="treeview_startup">
+                    <property name="model">
+                      <object class="GtkSingleSelection"/>
+                    </property>
                   </object>
                 </child>
               </object>
             </child>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">9</property>
-          </packing> -->
         </child>
         <child>
-          <object class="GtkSeparator" id="hseparator13">
-            <property name="orientation">horizontal</property>
-            <property name="width_request">1</property>
-            <property name="height_request">10</property>
-            <property name="visible">True</property>
+          <object class="GtkSeparator">
+            <property name="height-request">1</property>
+            <property name="margin-bottom">5</property>
+            <property name="margin-top">5</property>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="position">10</property>
-          </packing> -->
         </child>
         <child>
-          <object class="GtkBox" id="hbox74">
-            <property name="orientation">horizontal</property>
-            <property name="visible">True</property>
+          <object class="GtkLabel">
+            <property name="label">Choose league to start in</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkDropDown" id="combobox_start_league"/>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="height-request">1</property>
+            <property name="margin-bottom">2</property>
+            <property name="margin-top">2</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Choose username</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entry_player_name"/>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <child>
+              <object class="GtkBox">
+                <property name="halign">center</property>
+                <property name="spacing">2</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon-name">list-add-symbolic</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Add user</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="height-request">1</property>
+            <property name="margin-bottom">5</property>
+            <property name="margin-top">5</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
             <child>
               <object class="GtkToggleButton" id="radiobutton_team_def_load">
-                <property name="label" translatable="yes">Load team definitions</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Load teams from definition files (note that the official Bygfoot package doesn't contain team definition files, you have to get them from the homepage or via the bygfoot-update script)</property>
-                <property name="use_underline">True</property>
-                <!-- <property name="draw_indicator">True</property> -->
+                <property name="label">Load team definitions</property>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing> -->
             </child>
             <child>
               <object class="GtkToggleButton" id="radiobutton_team_def_names">
-                <property name="label" translatable="yes">Only names</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Load only the player names in the definition files</property>
-                <property name="use_underline">True</property>
-                <!-- <property name="draw_indicator">True</property> -->
                 <property name="group">radiobutton_team_def_load</property>
+                <property name="label">Only names</property>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing> -->
             </child>
             <child>
               <object class="GtkToggleButton" id="radiobutton_team_def_dont">
-                <property name="label" translatable="yes">Don't load definitions</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Don't load team definitions at all</property>
-                <property name="use_underline">True</property>
-                <!-- <property name="draw_indicator">True</property> -->
                 <property name="group">radiobutton_team_def_load</property>
+                <property name="label">Don't load definitions</property>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">2</property>
-              </packing> -->
             </child>
             <child>
-              <object class="GtkSeparator" id="vseparator2">
+              <object class="GtkSeparator">
+                <property name="height-request">1</property>
+                <property name="margin-end">5</property>
+                <property name="margin-start">5</property>
                 <property name="orientation">vertical</property>
-                <property name="width_request">10</property>
-                <property name="height_request">1</property>
-                <property name="visible">True</property>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">3</property>
-              </packing> -->
             </child>
             <child>
               <object class="GtkCheckButton" id="checkbutton_randomise_teams">
-                <property name="label" translatable="yes">Randomise teams in cups</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Randomise the order of teams in cups. This only makes sense in supernational definitions like the World Cup where the order of teams is fixed.</property>
-                <property name="use_underline">True</property>
-                <!-- <property name="draw_indicator">True</property> -->
+                <property name="label">Randomise teams in cups</property>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">4</property>
-              </packing> -->
             </child>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">11</property>
-          </packing> -->
         </child>
         <child>
-          <object class="GtkSeparator" id="hseparator16">
-            <property name="orientation">horizontal</property>
-            <property name="width_request">1</property>
-            <property name="height_request">5</property>
-            <property name="visible">True</property>
+          <object class="GtkSeparator">
+            <property name="height-request">1</property>
+            <property name="margin-bottom">2</property>
+            <property name="margin-top">2</property>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">12</property>
-          </packing> -->
         </child>
         <child>
-          <object class="GtkBox" id="hbox3">
-            <property name="orientation">horizontal</property>
-            <property name="visible">True</property>
+          <object class="GtkBox">
+            <property name="spacing">2</property>
             <child>
               <object class="GtkButton" id="team_selection_ok">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Space</property>
-                <!-- <property name="border_width">2</property> -->
-                <!-- <accelerator key="space" signal="clicked"/> -->
-                <!-- <signal name="clicked" handler="on_team_selection_ok_clicked"/> -->
+                <property name="hexpand">True</property>
                 <child>
-                  <!-- <object class="GtkAlignment" id="alignment18"> -->
-                  <object class="GtkBox" id="alignment18">
-                    <property name="orientation">horizontal</property>
-                    <property name="visible">True</property>
-                    <!-- <property name="xscale">0</property>
-                    <property name="yscale">0</property> -->
+                  <object class="GtkBox">
+                    <property name="halign">center</property>
+                    <property name="spacing">2</property>
                     <child>
-                      <object class="GtkBox" id="hbox53">
-                        <property name="orientation">horizontal</property>
-                        <property name="visible">True</property>
-                        <property name="spacing">2</property>
-                        <child>
-                          <object class="GtkImage" id="image58">
-                            <property name="visible">True</property>
-                            <!-- <property name="stock">gtk-apply</property> -->
-                          </object>
-                          <!-- <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing> -->
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label74">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Start</property>
-                            <property name="use_underline">True</property>
-                          </object>
-                          <!-- <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing> -->
-                        </child>
+                      <object class="GtkImage">
+                        <property name="icon-name">object-select-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">Start</property>
                       </object>
                     </child>
                   </object>
                 </child>
               </object>
-              <!-- <packing>
-                <property name="position">0</property>
-              </packing> -->
             </child>
             <child>
               <object class="GtkButton" id="button_team_selection_back">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Go back to the splash screen</property>
-                <!-- <property name="border_width">2</property> -->
-                <!-- <signal name="clicked" handler="on_button_team_selection_back_clicked"/> -->
+                <property name="hexpand">True</property>
                 <child>
-                  <!-- <object class="GtkAlignment" id="alignment24"> -->
-                  <object class="GtkBox" id="alignment24">
-                    <property name="orientation">horizontal</property>
-                    <property name="visible">True</property>
-                    <!-- <property name="xscale">0</property>
-                    <property name="yscale">0</property> -->
+                  <object class="GtkBox">
+                    <property name="halign">center</property>
+                    <property name="spacing">2</property>
                     <child>
-                      <object class="GtkBox" id="hbox77">
-                        <property name="orientation">horizontal</property>
-                        <property name="visible">True</property>
-                        <property name="spacing">2</property>
-                        <child>
-                          <object class="GtkImage" id="image64">
-                            <property name="visible">True</property>
-                            <!-- <property name="stock">gtk-go-back</property> -->
-                          </object>
-                          <!-- <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">0</property>
-                          </packing> -->
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label122">
-                            <property name="visible">True</property>
-                            <property name="label" translatable="yes">Back to splash</property>
-                            <property name="use_underline">True</property>
-                          </object>
-                          <!-- <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">False</property>
-                            <property name="position">1</property>
-                          </packing> -->
-                        </child>
+                      <object class="GtkImage">
+                        <property name="icon-name">go-previous-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">Back to splash</property>
                       </object>
                     </child>
                   </object>
                 </child>
               </object>
-              <!-- <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing> -->
             </child>
             <child>
               <object class="GtkButton" id="team_selection_cancel">
-                <property name="label">gtk-quit</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Esc</property>
-                <!-- <property name="border_width">2</property> -->
-                <!-- <property name="use_stock">True</property> -->
-                <!-- <accelerator key="Escape" signal="clicked"/> -->
-                <!-- <signal name="clicked" handler="on_team_selection_cancel_clicked"/> -->
+                <property name="hexpand">True</property>
+                <property name="label">Quit</property>
               </object>
-              <!-- <packing>
-                <property name="position">2</property>
-              </packing> -->
             </child>
           </object>
-          <!-- <packing>
-            <property name="expand">False</property>
-            <property name="position">13</property>
-          </packing> -->
         </child>
       </object>
     </child>

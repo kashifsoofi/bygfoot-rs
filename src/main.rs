@@ -1,5 +1,6 @@
 mod ui;
 mod store;
+mod domain;
 
 use gtk::{gio, glib, prelude::*};
 use ui::App;

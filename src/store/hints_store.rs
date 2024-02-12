@@ -1,7 +1,9 @@
-use std::path::{Path, PathBuf};
-use std::{env, fs};
+use std::{fs, path::Path};
 
-use super::store::get_bygfoot_dir;
+use dirs::home_dir;
+
+use super::store::{get_bygfoot_dir, find_support_file, load_options_file};
+use crate::domain::option::OptionsList;
 
 #[derive(Clone, Copy)]
 pub struct FileHintsStore;
@@ -31,21 +33,29 @@ impl FileHintsStore {
     }
 
     pub fn get_hints(self) -> Vec<String> {
-        vec!(
-            "1".to_string(),
-            "2".to_string(),
-            "3".to_string(),
-            "4".to_string(),
-            "5".to_string(),
-            "6".to_string(),
-            "7".to_string(),
-            "8".to_string(),
-            "9".to_string(),
-            "10".to_string(),
-            "11".to_string(),
-            "12".to_string(),
-            "13".to_string(),
-            "14".to_string(),
-        )
+        let mut hints = Vec::new();
+
+        let option_list = load_hints_file();
+        for option in option_list.iter() {
+            hints.push(option.string_value.clone())
+        }
+        hints
     }
+
+}
+
+fn get_language_code() -> String {
+    return "en".to_string()
+}
+
+fn load_hints_file() -> OptionsList {
+    let mut hints_filename = format!("bygfoot_hints_{})", get_language_code());
+    let hints_filepath = find_support_file(hints_filename.clone(), false);
+    if hints_filepath == None {
+        let mut path = home_dir().unwrap();
+        path.push("src/bygfoot-rs/support_files/hints/bygfoot_hints_en");
+        hints_filename = path.to_str().unwrap().to_string();
+    }
+
+    load_options_file(hints_filename, false)
 }
