@@ -1,6 +1,8 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs};
 
+use dirs::home_dir;
+
 use super::store::{get_bygfoot_dir, find_support_file, load_options_file};
 use crate::domain::option::{self, OptionsList};
 
@@ -51,7 +53,9 @@ fn load_hints_file() -> OptionsList {
     let mut hints_filename = format!("bygfoot_hints_{})", get_language_code());
     let hints_filepath = find_support_file(hints_filename.clone(), false);
     if hints_filepath == None {
-        hints_filename = "bygfoot_hints_en".to_string()
+        let mut path = home_dir().unwrap();
+        path.push("src/bygfoot-rs/support_files/hints/bygfoot_hints_en");
+        hints_filename = path.to_str().unwrap().to_string();
     }
 
     load_options_file(hints_filename, false)

@@ -58,8 +58,10 @@ pub fn find_support_file(filename: String, warning: bool) -> std::option::Option
 }
 
 pub fn load_options_file(filename: String, warning: bool) -> OptionsList {
-    let support_file = find_support_file(filename, warning);
-    let support_file = support_file.unwrap();
+    // let support_file = find_support_file(filename, warning);
+    // let support_file = support_file.unwrap();
+    let current_dir = get_current_dir();
+    let support_file = PathBuf::from(filename);
     let content = fs::read_to_string(support_file).unwrap();
 
     let mut options_list = OptionsList::new();
@@ -95,5 +97,15 @@ pub fn load_options_file(filename: String, warning: bool) -> OptionsList {
 }
 
 fn parse_option_line(line: String) -> std::option::Option<(String, String)> {
-    None
+    let line = match line.find('#') {
+        Some(index) => line[index..].to_string(),
+        None => line,
+    };
+
+    if line.is_empty() {
+        return None;
+    }
+
+    let (name, value) = line.split_once(" ").unwrap();
+    Some((name.to_string(), value.to_string()))
 }
