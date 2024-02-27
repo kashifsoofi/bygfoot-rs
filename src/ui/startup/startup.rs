@@ -9,7 +9,7 @@ use gtk::{glib, DropDown, CompositeTemplate};
 #[template(resource = "/org/bygfoot_rs/bygfoot/startup.ui")]
 pub struct StartupWindow {
     #[template_child]
-    pub dropdown_country: TemplateChild<DropDown>,
+    pub combo_country: TemplateChild<DropDown>,
 }
 
 // The central trait for subclassing a GObject
