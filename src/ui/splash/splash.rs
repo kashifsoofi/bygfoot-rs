@@ -3,11 +3,13 @@ use std::cell::{Cell, RefCell};
 use glib::Properties;
 use glib::subclass::InitializingObject;
 use gtk::glib::{self, ObjectExt};
-use gtk::prelude::*;
+use gtk::{prelude::*, StringObject};
 use gtk::subclass::prelude::*;
-use gtk::{CompositeTemplate, Button, Label};
+use gtk::{CompositeTemplate, Button, Label, ListView, ListItem,
+            StringList, SignalListItemFactory, NoSelection,};
 
 use crate::store::hints_store::FileHintsStore;
+use crate::store::help_store::FileHelpStore;
 use crate::ui::App;
 
 // Object holding the state
@@ -18,6 +20,8 @@ pub struct SplashWindow {
     // #[property(get, set)]
     application: App,
 
+    #[template_child]
+    listview_contributors: TemplateChild<ListView>, 
     #[template_child]
     label_hint_counter: TemplateChild<Label>,
     #[template_child]
@@ -64,11 +68,63 @@ impl ObjectImpl for SplashWindow {
         obj.set_hints(hints);
 
         self.show_hint();
+
+        self.show_contributors();
    }
 }
 
 #[gtk::template_callbacks]
 impl SplashWindow {
+    fn show_contributors(&self) {
+        let help_store = FileHelpStore::new();
+        let contributors = help_store.get_contributors();
+
+        let model = StringList::new(&[]);
+        for c in contributors.iter() {
+            model.append(c.as_str());
+        }
+
+        let selection_model = NoSelection::new(Some(model));
+        self.listview_contributors.set_model(Some(&selection_model));
+
+        let factory = SignalListItemFactory::new();
+        factory.connect_setup(move |_, list_item| {
+            let label = Label::new(None);
+            list_item
+                .downcast_ref::<ListItem>()
+                .expect("Needs to be ListItem")
+                .set_child(Some(&label));
+
+            // Bind `list_item->item->string` to `label->label`
+            // list_item
+            //     .property_expression("item")
+            //     .chain_property::<StringObject>("string")
+            //     .bind(&label, "markup", Widget::NONE);
+        });
+
+        factory.connect_bind(move |_, list_item| {
+            // Get `Label` from `ListItem`
+            let label = list_item
+                .downcast_ref::<ListItem>()
+                .expect("Needs to be ListItem")
+                .child()
+                .and_downcast::<Label>()
+                .expect("The child has to be a `Label`.");
+
+            // Get `String` from `ListItem`
+            let item = list_item
+                .downcast_ref::<ListItem>()
+                .expect("Needs to be ListItem")
+                .item()
+                .and_downcast::<StringObject>()
+                .expect("The item has to be a StringObject");
+
+            label.set_markup(item.string().as_str());
+        });
+
+        self.listview_contributors.set_factory(Some(&factory));
+    }
+
     fn show_hint(&self) {
         let obj = self.obj();
         let total_hints = obj.hints().len();
