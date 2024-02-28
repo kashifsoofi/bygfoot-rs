@@ -5,7 +5,7 @@ use glib::subclass::InitializingObject;
 use gtk::glib::{self, ObjectExt};
 use gtk::{prelude::*, StringObject};
 use gtk::subclass::prelude::*;
-use gtk::{CompositeTemplate, Button, Label, ListView, ListItem,
+use gtk::{Align, CompositeTemplate, Button, Label, ListView, ListItem,
             StringList, SignalListItemFactory, NoSelection,};
 
 use crate::store::hints_store::FileHintsStore;
@@ -81,7 +81,10 @@ impl SplashWindow {
 
         let model = StringList::new(&[]);
         for c in contributors.iter() {
-            model.append(c.as_str());
+            model.append(format!("\n<span size='large'>{}</span>", c.title).as_str());
+            for e in c.entries.iter() {
+                model.append(e.as_str());
+            }
         }
 
         let selection_model = NoSelection::new(Some(model));
@@ -90,6 +93,8 @@ impl SplashWindow {
         let factory = SignalListItemFactory::new();
         factory.connect_setup(move |_, list_item| {
             let label = Label::new(None);
+            label.set_halign(Align::Start);
+            label.set_can_target(false);
             list_item
                 .downcast_ref::<ListItem>()
                 .expect("Needs to be ListItem")
