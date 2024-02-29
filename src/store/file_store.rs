@@ -104,7 +104,7 @@ pub fn get_bygfoot_dir() -> PathBuf {
     get_current_dir()
 }
 
-pub fn find_support_file(filename: String, warning: bool) -> std::option::Option<PathBuf> {
+pub fn find_support_file(filename: String, _warning: bool) -> std::option::Option<PathBuf> {
     let path = PathBuf::from(filename);
     let file_name = path.file_name().unwrap().to_str().unwrap();
     
@@ -121,10 +121,10 @@ pub fn find_support_file(filename: String, warning: bool) -> std::option::Option
     None
 }
 
-pub fn load_options_file(filename: String, warning: bool) -> OptionsList {
+pub fn load_options_file(filename: String, _warning: bool) -> OptionsList {
     // let support_file = find_support_file(filename, warning);
     // let support_file = support_file.unwrap();
-    let current_dir = get_current_dir();
+    let _current_dir = get_current_dir();
     let support_file = PathBuf::from(filename);
     let content = fs::read_to_string(support_file).unwrap();
 
