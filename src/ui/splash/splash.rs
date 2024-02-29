@@ -8,6 +8,7 @@ use gtk::subclass::prelude::*;
 use gtk::{Align, CompositeTemplate, Button, Label, ListView, ListItem,
             StringList, SignalListItemFactory, NoSelection,};
 
+use crate::store::store::FileStore;
 use crate::store::hints_store::FileHintsStore;
 use crate::store::help_store::FileHelpStore;
 use crate::ui::App;
@@ -60,7 +61,8 @@ impl ObjectImpl for SplashWindow {
 
         let obj = self.obj();
 
-        let hints_store = FileHintsStore::new();
+        let file_store = FileStore::new();
+        let hints_store = file_store.hints_store();
         let hint_num = hints_store.load_hint_number();
         obj.set_hint_num(hint_num);
 
@@ -69,14 +71,13 @@ impl ObjectImpl for SplashWindow {
 
         self.show_hint();
 
-        self.show_contributors();
+        self.show_contributors(file_store.help_store());
    }
 }
 
 #[gtk::template_callbacks]
 impl SplashWindow {
-    fn show_contributors(&self) {
-        let help_store = FileHelpStore::new();
+    fn show_contributors(&self, help_store: FileHelpStore) {
         let contributors = help_store.get_contributors();
 
         let model = StringList::new(&[]);

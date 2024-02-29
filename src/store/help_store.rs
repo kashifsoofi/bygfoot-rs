@@ -1,6 +1,9 @@
+use super::store::{get_bygfoot_dir, find_support_file, load_options_file};
 
 #[derive(Clone, Copy)]
 pub struct FileHelpStore;
+
+const HELP_FILE_NAME: &str = "bygfoot_help";
 
 impl FileHelpStore {
     pub fn new() -> FileHelpStore {
@@ -10,8 +13,23 @@ impl FileHelpStore {
     pub fn get_contributors(self) -> Vec<Contributor> {
         let mut contributors: Vec<Contributor> = Vec::new();
 
-        contributors.push(Contributor { title: "title 1".to_string(), entries: vec!["entry 1".to_string(), "entry 2".to_string()]});
-        contributors.push(Contributor { title: "title 2".to_string(), entries: vec!["entry 1".to_string(), "entry 2".to_string()]});
+        let help_file_path = find_support_file(HELP_FILE_NAME.to_string(), false);
+        if help_file_path == None {
+            return contributors;
+        }
+
+        let help_file_path = help_file_path.unwrap().to_str().unwrap().to_string();
+        let option_list = load_options_file(help_file_path, false);
+        let mut i = 0;
+        while i < option_list.len() {
+            if option_list[i].name == "string_contrib_title" {
+                contributors.push(Contributor { title: option_list[i].string_value.clone(), entries: vec![] });
+            } else {
+                let index = contributors.len() - 1;
+                contributors[index].entries.push(option_list[i].string_value.clone());
+            }
+            i += 1
+        }
 
         contributors
     }
