@@ -1,4 +1,4 @@
-use super::store::{get_bygfoot_dir, find_support_file, load_options_file};
+use crate::store::file_store::{get_bygfoot_dir, find_support_file, load_options_file};
 
 #[derive(Clone, Copy)]
 pub struct FileHelpStore;

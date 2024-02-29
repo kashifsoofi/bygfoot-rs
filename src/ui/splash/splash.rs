@@ -8,7 +8,7 @@ use gtk::subclass::prelude::*;
 use gtk::{Align, CompositeTemplate, Button, Label, ListView, ListItem,
             StringList, SignalListItemFactory, NoSelection,};
 
-use crate::store::store::FileStore;
+use crate::store::file_store::FileStore;
 use crate::store::help_store::FileHelpStore;
 use crate::ui::App;
 
@@ -70,7 +70,8 @@ impl ObjectImpl for SplashWindow {
 
         self.show_hint();
 
-        self.show_contributors(file_store.help_store());
+        let help_store = file_store.help_store();
+        self.show_contributors(help_store);
    }
 }
 

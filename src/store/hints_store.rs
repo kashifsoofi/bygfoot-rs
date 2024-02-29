@@ -2,7 +2,7 @@ use std::{fs, path::Path};
 
 use dirs::home_dir;
 
-use super::store::{get_bygfoot_dir, find_support_file, load_options_file};
+use crate::store::file_store::{get_bygfoot_dir, find_support_file, load_options_file};
 use crate::domain::option::OptionsList;
 
 #[derive(Clone, Copy)]
