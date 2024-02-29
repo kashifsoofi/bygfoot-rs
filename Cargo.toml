@@ -3,18 +3,6 @@ name = "bygfoot"
 version = "0.1.0"
 edition = "2021"
 
-[lib]
-# We could use any path here, but we are following the community convention
-# We could specify a library name using the `name` field. If unspecified,
-# cargo will default to `package.name`, which is what we want.
-path = "src/lib.rs"
-name = "bf"
-crate-type = ["cdylib"] 
-
-[[bin]]
-path = "src/main.rs"
-name = "bygfoot"
-
 [dependencies]
 dirs = "5.0"
 gtk = { version = "0.7.3", package = "gtk4", features = ["v4_12"] }

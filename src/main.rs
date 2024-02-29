@@ -2,7 +2,7 @@ mod ui;
 mod store;
 mod domain;
 
-use gtk::{gio, glib, prelude::*};
+use gtk::{glib, prelude::*};
 use ui::App;
 
 fn main() -> glib::ExitCode {
