@@ -6,7 +6,7 @@ use gtk::{glib, DropDown, CompositeTemplate};
 
 // Object holding the state
 #[derive(CompositeTemplate, Default)]
-#[template(resource = "/org/bygfoot_rs/bygfoot/startup.ui")]
+#[template(file = "startup.ui")]
 pub struct StartupWindow {
     #[template_child]
     pub combo_country: TemplateChild<DropDown>,

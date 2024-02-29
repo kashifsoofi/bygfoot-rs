@@ -2,8 +2,8 @@
 <!DOCTYPE cambalache-project SYSTEM "cambalache-project.dtd">
 <cambalache-project version="0.13.1" target_tk="gtk-4.0">
   <ui>
-	(1,1,"splash.ui","splash.ui",None,None,None,None,None,None,None),
-	(2,1,None,"startup.ui",None,None,None,None,None,None,None)
+	(1,1,"splash.ui","splash/splash.ui",None,None,None,None,None,None,None),
+	(2,1,None,"startup/startup.ui",None,None,None,None,None,None,None)
   </ui>
   <object>
 	(1,1,"GtkWindow","SplashWindow",None,None,None,None,-1,None),
@@ -150,7 +150,7 @@
 	(1,39,"GtkLabel","justify","right",None,None,None,None,None,None,None,None,None),
 	(1,39,"GtkWidget","halign","end",None,None,None,None,None,None,None,None,None),
 	(1,39,"GtkWidget","hexpand","True",None,None,None,None,None,None,None,None,None),
-	(1,40,"GtkImage","file","support_files/pixmaps/bygfoot_splash.png",None,None,None,None,None,None,None,None,None),
+	(1,40,"GtkImage","file","../../../support_files/pixmaps/bygfoot_splash.png",None,None,None,None,None,None,None,None,None),
 	(1,40,"GtkWidget","height-request","230",None,None,None,None,None,None,None,None,None),
 	(1,42,"GtkWidget","can-focus","False",None,None,None,None,None,None,None,None,None),
 	(1,42,"GtkWidget","can-target","False",None,None,None,None,None,None,None,None,None),

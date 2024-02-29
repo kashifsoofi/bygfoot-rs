@@ -9,14 +9,13 @@ use gtk::{Align, CompositeTemplate, Button, Label, ListView, ListItem,
             StringList, SignalListItemFactory, NoSelection,};
 
 use crate::store::store::FileStore;
-use crate::store::hints_store::FileHintsStore;
 use crate::store::help_store::FileHelpStore;
 use crate::ui::App;
 
 // Object holding the state
 #[derive(CompositeTemplate, Default, Properties)]
 #[properties(wrapper_type = super::SplashWindow)]
-#[template(resource = "/org/bygfoot_rs/bygfoot/splash.ui")]
+#[template(file = "splash.ui")]
 pub struct SplashWindow {
     // #[property(get, set)]
     application: App,
