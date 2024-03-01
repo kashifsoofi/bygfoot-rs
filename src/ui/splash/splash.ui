@@ -4,6 +4,7 @@
   <!-- interface-name splash.ui -->
   <requires lib="gtk" version="4.12"/>
   <template class="SplashWindow" parent="GtkWindow">
+    <signal name="close-request" handler="on_close_request"/>
     <child>
       <object class="GtkBox">
         <property name="margin-bottom">5</property>

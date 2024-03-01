@@ -144,6 +144,24 @@ impl SplashWindow {
         self.label_hint.set_label(hint);
     }
 
+    fn window_destroy(&self) {
+        let obj = self.obj();
+        let total_hints = obj.hints().len();
+        let hint_num = (obj.hint_num() + 1) % (total_hints as i32);
+
+        let file_store = FileStore::new();
+        let hints_store = file_store.hints_store();
+        hints_store.save_hint_number(hint_num);
+
+        obj.destroy();
+    }
+
+    #[template_callback]
+    fn on_close_request(&self) -> bool {
+        self.window_destroy();
+        false
+    }
+
     #[template_callback]
     fn on_hint_back_clicked(&self, _: &Button) {
         let obj = self.obj();
@@ -168,7 +186,9 @@ impl SplashWindow {
     
     #[template_callback]
     fn on_new_game_clicked(&self, _: &Button) {
-        self.application.show_startup();
+        let app = &self.application.clone();
+        // self.window_destroy();
+        app.show_startup();
     }
     
     #[template_callback]
@@ -181,7 +201,9 @@ impl SplashWindow {
     
     #[template_callback]
     fn on_quit_clicked(&self, _: &Button) {
-        self.application.quit();
+        let application = self.obj().application().unwrap();
+        self.window_destroy();
+        application.quit();
     }
 }
 

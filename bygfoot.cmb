@@ -150,7 +150,7 @@
 	(1,39,"GtkLabel","justify","right",None,None,None,None,None,None,None,None,None),
 	(1,39,"GtkWidget","halign","end",None,None,None,None,None,None,None,None,None),
 	(1,39,"GtkWidget","hexpand","True",None,None,None,None,None,None,None,None,None),
-	(1,40,"GtkImage","file","../support_files/pixmaps/bygfoot_splash.png",None,None,None,None,None,None,None,None,None),
+	(1,40,"GtkImage","file","support_files/pixmaps/bygfoot_splash.png",None,None,None,None,None,None,None,None,None),
 	(1,40,"GtkWidget","height-request","230",None,None,None,None,None,None,None,None,None),
 	(1,42,"GtkWidget","can-focus","False",None,None,None,None,None,None,None,None,None),
 	(1,42,"GtkWidget","can-target","False",None,None,None,None,None,None,None,None,None),
@@ -213,7 +213,10 @@
 	(3,1,9,"GtkButton","clicked","on_new_game_clicked",None,None,1,None,None),
 	(4,1,10,"GtkButton","clicked","on_load_game_clicked",None,None,1,None,None),
 	(5,1,11,"GtkButton","clicked","on_resume_game_clicked",None,None,1,None,None),
-	(6,1,12,"GtkButton","clicked","on_quit_clicked",None,None,1,None,None)
+	(6,1,12,"GtkButton","clicked","on_quit_clicked",None,None,1,None,None),
+	(7,1,1,"GtkWindow","close-request","on_close_request",None,None,None,None,None),
+	(8,2,37,"GtkButton","clicked","on_back_clicked",None,None,1,None,None),
+	(9,2,41,"GtkButton","clicked","on_cancel_clicked",None,None,1,None,None)
   </object_signal>
   <object_data>
 	(1,1,"GtkWidget",1,1,None,None,None,None,None,None)
