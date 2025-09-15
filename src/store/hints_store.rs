@@ -49,7 +49,7 @@ fn get_language_code() -> String {
 }
 
 fn load_hints_file() -> OptionsList {
-    let mut hints_filename = format!("bygfoot_hints_{})", get_language_code());
+    let mut hints_filename = format!("bygfoot_hints_{}", get_language_code());
     let hints_filepath = find_support_file(hints_filename.clone(), false);
     if hints_filepath == None {
         let mut path = home_dir().unwrap();
