@@ -3,7 +3,7 @@ use glib::subclass::InitializingObject;
 use gtk::prelude::GtkWindowExt;
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
-use gtk::{glib, Button, DropDown, CompositeTemplate};
+use gtk::{Button, CompositeTemplate, DropDown, glib};
 
 use crate::ui::App;
 
@@ -40,7 +40,7 @@ impl ObjectImpl for StartupWindow {
     fn constructed(&self) {
         // Call "constructed" on parent
         self.parent_constructed();
-   }
+    }
 }
 
 #[gtk::template_callbacks]

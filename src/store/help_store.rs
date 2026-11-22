@@ -14,7 +14,7 @@ impl FileHelpStore {
         let mut contributors: Vec<Contributor> = Vec::new();
 
         let help_file_path = find_support_file(HELP_FILE_NAME.to_string(), false);
-        if help_file_path == None {
+        if help_file_path.is_none() {
             return contributors;
         }
 
@@ -23,10 +23,15 @@ impl FileHelpStore {
         let mut i = 0;
         while i < option_list.len() {
             if option_list[i].name == "string_contrib_title" {
-                contributors.push(Contributor { title: option_list[i].string_value.clone(), entries: vec![] });
+                contributors.push(Contributor {
+                    title: option_list[i].string_value.clone(),
+                    entries: vec![],
+                });
             } else {
                 let index = contributors.len() - 1;
-                contributors[index].entries.push(option_list[i].string_value.clone());
+                contributors[index]
+                    .entries
+                    .push(option_list[i].string_value.clone());
             }
             i += 1
         }

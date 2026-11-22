@@ -1,4 +1,3 @@
-
 enum Value {
     StringValue(String),
     Value(i32),
@@ -13,7 +12,7 @@ pub struct Option {
 impl Option {
     pub fn new(name: String) -> Self {
         Self {
-            name: name,
+            name,
             string_value: "".to_string(),
             value: -1,
         }

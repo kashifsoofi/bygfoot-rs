@@ -3,10 +3,12 @@ use std::cell::{Cell, RefCell};
 use glib::Properties;
 use glib::subclass::InitializingObject;
 use gtk::glib::{self, ObjectExt};
-use gtk::{prelude::*, StringObject};
 use gtk::subclass::prelude::*;
-use gtk::{Align, CompositeTemplate, Button, Label, ListView, ListItem,
-            StringList, SignalListItemFactory, NoSelection,};
+use gtk::{
+    Align, Button, CompositeTemplate, Label, ListItem, ListView, NoSelection,
+    SignalListItemFactory, StringList,
+};
+use gtk::{StringObject, prelude::*};
 
 use crate::store::file_store::FileStore;
 use crate::store::help_store::FileHelpStore;
@@ -21,12 +23,12 @@ pub struct SplashWindow {
     application: App,
 
     #[template_child]
-    listview_contributors: TemplateChild<ListView>, 
+    listview_contributors: TemplateChild<ListView>,
     #[template_child]
     label_hint_counter: TemplateChild<Label>,
     #[template_child]
     label_hint: TemplateChild<Label>,
-    
+
     #[property(get, set)]
     hints: RefCell<Vec<String>>,
     #[property(get, set)]
@@ -72,7 +74,7 @@ impl ObjectImpl for SplashWindow {
 
         let help_store = file_store.help_store();
         self.show_contributors(help_store);
-   }
+    }
 }
 
 #[gtk::template_callbacks]
@@ -175,30 +177,28 @@ impl SplashWindow {
         obj.set_hint_num(hint_num);
         self.show_hint()
     }
-    
+
     #[template_callback]
     fn on_hint_next_clicked(&self, _: &Button) {
-        let obj = self.obj();        
+        let obj = self.obj();
         let hint_num = (obj.hint_num() + 1) % obj.hints().len() as i32;
         obj.set_hint_num(hint_num);
         self.show_hint()
     }
-    
+
     #[template_callback]
     fn on_new_game_clicked(&self, _: &Button) {
         let app = &self.application.clone();
         // self.window_destroy();
         app.show_startup();
     }
-    
+
     #[template_callback]
-    fn on_load_game_clicked(&self, _: &Button) {
-    }
-    
+    fn on_load_game_clicked(&self, _: &Button) {}
+
     #[template_callback]
-    fn on_resume_game_clicked(&self, _: &Button) {
-    }
-    
+    fn on_resume_game_clicked(&self, _: &Button) {}
+
     #[template_callback]
     fn on_quit_clicked(&self, _: &Button) {
         let application = self.obj().application().unwrap();

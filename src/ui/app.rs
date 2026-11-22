@@ -16,9 +16,9 @@ impl ObjectImpl for App {}
 impl ApplicationImpl for App {
     fn activate(&self) {
         self.parent_activate();
-        // We create our window at activation stage
-        let obj=self.obj();
-        obj.show_splash();
+        // C: the splash/startup decision block of main() (see main.rs)
+        let obj = self.obj();
+        crate::decide_start_window(&obj);
     }
 }
 impl GtkApplicationImpl for App {}

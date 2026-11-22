@@ -1,6 +1,6 @@
 use std::fs::read_dir;
-use std::{env, fs};
 use std::path::{Path, PathBuf};
+use std::{env, fs, sync::Mutex};
 
 use crate::domain::option::{Option, OptionsList};
 
@@ -13,9 +13,9 @@ static PACKAGE_DATA_DIR: &str = "../..";
 static PACKAGE_LOCALE_DIR: &str = ".";
 static HOME_DIR_NAME: &str = ".bygfoot";
 
-static mut support_directories: Vec<String> = vec![];
-static root_definitions_directories: Vec<String> = vec![];
-static definitions_directories: Vec<String> = vec![];
+static SUPPORT_DIRECTORIES: Mutex<Vec<String>> = Mutex::new(Vec::new());
+static ROOT_DEFINITIONS_DIRECTORIES: Vec<String> = vec![];
+static DEFINITIONS_DIRECTORIES: Vec<String> = vec![];
 
 #[derive(Clone, Copy)]
 pub struct FileStore {
@@ -28,10 +28,10 @@ impl FileStore {
         let base_dir = get_current_dir();
         let base_dir = base_dir.join(PACKAGE_DATA_DIR);
         let support_files_directory = base_dir.join("support_files");
-        add_support_directories_recursive(support_files_directory);
+        add_support_directory_recursive(support_files_directory);
         let home_directory = home_dir();
         let home_directory = home_directory.join(HOME_DIR_NAME);
-        add_support_directories_recursive(home_directory);
+        add_support_directory_recursive(home_directory);
 
         Self {
             hints_store: FileHintsStore::new(),
@@ -40,19 +40,18 @@ impl FileStore {
     }
 
     pub fn hints_store(self) -> FileHintsStore {
-        self.hints_store.clone()
+        self.hints_store
     }
 
     pub fn help_store(self) -> FileHelpStore {
-        self.help_store.clone()
+        self.help_store
     }
 }
 
-fn add_definitions_directory(_directory: PathBuf) {
+fn add_definitions_directory(_directory: PathBuf) {}
 
-}
-
-fn add_support_directories_recursive(directory: PathBuf) {
+/// C: `file_add_support_directory_recursive` (file.c).
+pub fn add_support_directory_recursive(directory: PathBuf) {
     if !exists(directory.to_owned()) {
         return;
     }
@@ -64,14 +63,17 @@ fn add_support_directories_recursive(directory: PathBuf) {
 
     add_definitions_directory(directory.to_owned());
     // add_pixmap_directory(directory);
-    unsafe { support_directories.push(directory.to_str().unwrap().to_string()); }
+    SUPPORT_DIRECTORIES
+        .lock()
+        .unwrap()
+        .push(directory.to_str().unwrap().to_string());
 
     let entries = read_dir(directory).unwrap();
     for entry in entries {
         let entry = entry.unwrap();
         let meta = entry.metadata().unwrap();
         if meta.is_dir() {
-            add_support_directories_recursive(entry.path());
+            add_support_directory_recursive(entry.path());
         }
     }
 }
@@ -107,15 +109,14 @@ pub fn get_bygfoot_dir() -> PathBuf {
 pub fn find_support_file(filename: String, _warning: bool) -> std::option::Option<PathBuf> {
     let path = PathBuf::from(filename);
     let file_name = path.file_name().unwrap().to_str().unwrap();
-    
-    unsafe {
-    for directory in support_directories.iter() {
+
+    let directories = SUPPORT_DIRECTORIES.lock().unwrap();
+    for directory in directories.iter() {
         let file_path = PathBuf::from(directory);
         let file_path = file_path.join(file_name);
         if exists(file_path.clone()) {
             return Some(file_path);
         }
-    }
     }
 
     None
